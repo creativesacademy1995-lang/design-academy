@@ -3,8 +3,11 @@
 import { Button } from "@/components/ui/button"
 import { ArrowRight, Sparkles } from "lucide-react"
 import Link from "next/link"
+import { useAdmissions } from "@/components/AdmissionsContext"
 
 export function CtaBanner() {
+    const { openModal } = useAdmissions()
+
     return (
         <section className="py-24 container">
             <div className="relative overflow-hidden rounded-[2.5rem] bg-slate-900 border border-white/10 p-12 md:p-24 text-center">
@@ -29,10 +32,8 @@ export function CtaBanner() {
                     </p>
 
                     <div className="flex flex-col sm:flex-row gap-6 justify-center pt-4">
-                        <Button size="lg" variant="gradient" className="h-16 px-12 text-lg group" asChild>
-                            <Link href="/admissions">
-                                Apply Now <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
-                            </Link>
+                        <Button size="lg" variant="gradient" className="h-16 px-12 text-lg group" onClick={openModal}>
+                            Apply Now <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
                         </Button>
                         <Button size="lg" variant="outline" className="h-16 px-12 text-lg glass" asChild>
                             <Link href="/courses">Explore Curriculum</Link>

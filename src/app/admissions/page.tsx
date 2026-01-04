@@ -2,14 +2,15 @@
 
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle, CardFooter } from "@/components/ui/card"
-import Link from "next/link"
 
 import { Badge } from "@/components/ui/badge"
 import { Check, ChevronDown, Rocket, ShieldCheck, CreditCard, Sparkles } from "lucide-react"
 import { useState } from "react"
 import { cn } from "@/lib/utils"
+import { useAdmissions } from "@/components/AdmissionsContext"
 
 export default function AdmissionsPage() {
+    const { openModal } = useAdmissions()
     const [openFaq, setOpenFaq] = useState<number | null>(null)
 
     const toggleFaq = (index: number) => {
@@ -17,7 +18,7 @@ export default function AdmissionsPage() {
     }
 
     return (
-        <div className="min-h-screen bg-background pt-20">
+        <div className="min-h-screen bg-background pb-32 pt-20">
             {/* Header */}
             <section className="relative py-24 md:py-48 bg-grid overflow-hidden">
                 <div className="absolute inset-0 bg-gradient-to-b from-primary/10 via-background to-background" />
@@ -28,8 +29,8 @@ export default function AdmissionsPage() {
                         Admissions for the Summer 2026 cohort are now formally open. We look for passion, drive, and the hunger to innovate.
                     </p>
                     <div className="flex justify-center pt-4">
-                        <Button size="lg" variant="gradient" className="h-16 px-12 text-lg rounded-2xl" asChild>
-                            <Link href="/contact">Start Your Application</Link>
+                        <Button size="lg" variant="gradient" className="h-16 px-12 text-lg rounded-2xl" onClick={openModal}>
+                            Start Your Application
                         </Button>
                     </div>
                 </div>

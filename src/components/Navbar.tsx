@@ -6,6 +6,7 @@ import { usePathname } from "next/navigation"
 import { Menu, X } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
+import { useAdmissions } from "@/components/AdmissionsContext"
 
 const navItems = [
     { name: "Home", href: "/" },
@@ -19,6 +20,7 @@ const navItems = [
 export function Navbar() {
     const [isOpen, setIsOpen] = React.useState(false)
     const pathname = usePathname()
+    const { openModal } = useAdmissions()
 
     React.useEffect(() => {
         setIsOpen(false)
@@ -51,8 +53,8 @@ export function Navbar() {
                                 {item.name}
                             </Link>
                         ))}
-                        <Button variant="gradient" size="sm" className="rounded-xl px-6 h-10 shadow-glow-primary" asChild>
-                            <Link href="/admissions">Apply Now</Link>
+                        <Button variant="gradient" size="sm" className="rounded-xl px-6 h-10 shadow-glow-primary" onClick={openModal}>
+                            Apply Now
                         </Button>
                     </nav>
 
@@ -85,8 +87,8 @@ export function Navbar() {
                                 {item.name}
                             </Link>
                         ))}
-                        <Button size="lg" variant="gradient" className="mt-8" asChild>
-                            <Link href="/admissions">Join Academy</Link>
+                        <Button size="lg" variant="gradient" className="mt-8" onClick={openModal}>
+                            Join Academy
                         </Button>
                     </nav>
                 </div>

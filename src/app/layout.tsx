@@ -5,6 +5,8 @@ import { cn } from "@/lib/utils";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { ChatWidget } from "@/components/ChatWidget";
+import { AdmissionsProvider } from "@/components/AdmissionsContext";
+import { AdmissionsModal } from "@/components/AdmissionsModal";
 
 const manrope = Manrope({
   subsets: ["latin"],
@@ -33,12 +35,15 @@ export default function RootLayout({
         manrope.variable,
         inter.variable
       )}>
-        <Navbar />
-        <main className="flex-1">
-          {children}
-        </main>
-        <Footer />
-        <ChatWidget />
+        <AdmissionsProvider>
+          <Navbar />
+          <main className="flex-1">
+            {children}
+          </main>
+          <Footer />
+          <ChatWidget />
+          <AdmissionsModal />
+        </AdmissionsProvider>
       </body>
     </html>
   );
