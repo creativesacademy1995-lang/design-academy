@@ -18,7 +18,7 @@ const courses = [
 ]
 
 export function AdmissionsModal() {
-    const { isOpen, closeModal } = useAdmissions()
+    const { isOpen, closeModal, selectedCourse } = useAdmissions()
     const [formData, setFormData] = React.useState({
         fullName: "",
         email: "",
@@ -62,6 +62,13 @@ export function AdmissionsModal() {
         document.addEventListener("keydown", handleEscape)
         return () => document.removeEventListener("keydown", handleEscape)
     }, [isOpen, closeModal])
+
+    // When modal opens, prefill course if provided by context
+    React.useEffect(() => {
+        if (isOpen) {
+            setFormData(prev => ({ ...prev, course: selectedCourse ?? "" }))
+        }
+    }, [isOpen, selectedCourse])
 
     if (!isOpen) return null
 
@@ -175,22 +182,7 @@ export function AdmissionsModal() {
                         </select>
                     </div>
 
-                    {/* Educational Background */}
-                    <div className="space-y-3">
-                        <Label htmlFor="education" className="text-xs font-black text-slate-500 uppercase tracking-widest pl-1">
-                            Educational Background <span className="text-red-500">*</span>
-                        </Label>
-                        <Input
-                            id="education"
-                            name="education"
-                            type="text"
-                            required
-                            placeholder="e.g., Bachelor's in Computer Science"
-                            value={formData.education}
-                            onChange={handleChange}
-                            className="h-14 bg-white/5 border-white/10 rounded-xl text-lg focus:ring-primary"
-                        />
-                    </div>
+                    
 
                     {/* Motivation */}
                     <div className="space-y-3">

@@ -32,7 +32,7 @@ export function CtaBanner() {
                     </p>
 
                     <div className="flex flex-col sm:flex-row gap-6 justify-center pt-4">
-                        <Button size="lg" variant="gradient" className="h-16 px-12 text-lg group" onClick={openModal}>
+                        <Button size="lg" variant="gradient" className="h-16 px-12 text-lg group" onClick={() => openModal()}>
                             Apply Now <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
                         </Button>
                         <Button size="lg" variant="outline" className="h-16 px-12 text-lg glass" asChild>

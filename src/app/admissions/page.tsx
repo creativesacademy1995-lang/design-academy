@@ -29,7 +29,7 @@ export default function AdmissionsPage() {
                         Admissions for the Summer 2026 cohort are now formally open. We look for passion, drive, and the hunger to innovate.
                     </p>
                     <div className="flex justify-center pt-4">
-                        <Button size="lg" variant="gradient" className="h-16 px-12 text-lg rounded-2xl" onClick={openModal}>
+                                    <Button size="lg" variant="gradient" className="h-16 px-12 text-lg rounded-2xl" onClick={() => openModal()}>
                             Start Your Application
                         </Button>
                     </div>

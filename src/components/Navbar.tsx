@@ -53,7 +53,7 @@ export function Navbar() {
                                 {item.name}
                             </Link>
                         ))}
-                        <Button variant="gradient" size="sm" className="rounded-xl px-6 h-10 shadow-glow-primary" onClick={openModal}>
+                        <Button variant="gradient" size="sm" className="rounded-xl px-6 h-10 shadow-glow-primary" onClick={() => openModal()}>
                             Apply Now
                         </Button>
                     </nav>
@@ -87,7 +87,7 @@ export function Navbar() {
                                 {item.name}
                             </Link>
                         ))}
-                        <Button size="lg" variant="gradient" className="mt-8" onClick={openModal}>
+                        <Button size="lg" variant="gradient" className="mt-8" onClick={() => openModal()}>
                             Join Academy
                         </Button>
                     </nav>

@@ -6,7 +6,7 @@ import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { ChatWidget } from "@/components/ChatWidget";
 import { AdmissionsProvider } from "@/components/AdmissionsContext";
-import { AdmissionsModal } from "@/components/AdmissionsModal";
+import AdmissionsModalClient from "@/components/AdmissionsModalClient";
 
 const manrope = Manrope({
   subsets: ["latin"],
@@ -30,7 +30,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={cn(
+      <body suppressHydrationWarning className={cn(
         "min-h-screen bg-background font-sans antialiased flex flex-col",
         manrope.variable,
         inter.variable
@@ -42,7 +42,7 @@ export default function RootLayout({
           </main>
           <Footer />
           <ChatWidget />
-          <AdmissionsModal />
+          <AdmissionsModalClient />
         </AdmissionsProvider>
       </body>
     </html>
