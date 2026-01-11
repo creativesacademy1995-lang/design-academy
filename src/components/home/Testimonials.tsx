@@ -3,7 +3,9 @@
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
+import { motion } from "framer-motion"
 import { Star, Quote } from "lucide-react"
+import { Section } from "@/components/ui/section"
 
 const testimonials = [
     {
@@ -31,47 +33,60 @@ const testimonials = [
 
 export function Testimonials() {
     return (
-        <section className="py-24 md:py-32 relative bg-background overflow-hidden">
+        <Section spacing="default" className="relative overflow-hidden">
             {/* Background decoration */}
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-primary/5 rounded-full blur-[120px] pointer-events-none" />
 
-            <div className="container relative z-10">
-                <div className="text-center space-y-4 mb-20 max-w-3xl mx-auto">
-                    <Badge variant="outline" className="px-4 py-1 text-primary border-primary/20 bg-primary/5 uppercase tracking-tighter">Success Stories</Badge>
-                    <h2 className="text-4xl md:text-7xl font-black font-heading text-white">Trust the Process.</h2>
-                    <p className="text-lg md:text-xl text-slate-400">
-                        Join thousands of graduates who have transformed their careers through our immersive learning experience.
-                    </p>
+            <div className="text-center space-y-6 mb-24 max-w-3xl mx-auto relative z-10">
+                <div className="inline-flex items-center gap-2 px-6 py-2 rounded-full border border-white/10 bg-white/5 backdrop-blur-xl shadow-2xl">
+                    <div className="w-2 h-2 rounded-full bg-primary animate-ping" />
+                    <span className="text-[10px] font-black text-white uppercase tracking-[0.4em]">Success Stories</span>
                 </div>
-
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                    {testimonials.map((testimonial, i) => (
-                        <Card key={i} className="bg-white/[0.02] border-white/5 hover:bg-white/[0.04] transition-all duration-500 relative group p-8">
-                            <Quote className="absolute top-8 right-8 h-12 w-12 text-white/5 group-hover:text-primary/10 transition-colors" />
-                            <CardContent className="p-0 space-y-6">
-                                <div className="flex gap-1">
-                                    {[...Array(testimonial.rating)].map((_, i) => (
-                                        <Star key={i} className="h-4 w-4 fill-primary text-primary" />
-                                    ))}
-                                </div>
-                                <p className="text-xl font-medium text-slate-200 leading-relaxed italic">
-                                    &ldquo;{testimonial.content}&rdquo;
-                                </p>
-                                <div className="flex items-center gap-4 pt-4">
-                                    <Avatar className="h-14 w-14 border-2 border-primary/20">
-                                        <AvatarImage src={testimonial.image} />
-                                        <AvatarFallback>{testimonial.name[0]}</AvatarFallback>
-                                    </Avatar>
-                                    <div>
-                                        <h4 className="font-bold text-white text-lg">{testimonial.name}</h4>
-                                        <p className="text-sm text-slate-500 font-medium">{testimonial.role}</p>
-                                    </div>
-                                </div>
-                            </CardContent>
-                        </Card>
-                    ))}
-                </div>
+                <h2 className="text-5xl md:text-8xl font-black font-heading text-white leading-[1.1] tracking-tight">
+                    Trust the <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-blue-400 to-indigo-400">Process.</span>
+                </h2>
+                <p className="text-lg md:text-xl text-slate-400 leading-relaxed font-medium">
+                    Join thousands of graduates who have transformed their careers through our immersive learning experience.
+                </p>
             </div>
-        </section>
+
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 relative z-10">
+                {testimonials.map((testimonial, i) => (
+                    <motion.div
+                        key={i}
+                        whileHover={{ y: -8 }}
+                        transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                        className="bg-white/[0.03] border border-white/5 hover:bg-white/[0.06] transition-all duration-500 rounded-[2.5rem] relative group p-10 flex flex-col justify-between"
+                    >
+                        <Quote className="absolute top-10 right-10 h-16 w-16 text-white/5 group-hover:text-primary/10 transition-colors" />
+
+                        <div className="space-y-8">
+                            <div className="flex gap-1">
+                                {[...Array(testimonial.rating)].map((_, i) => (
+                                    <Star key={i} className="h-4 w-4 fill-primary text-primary" />
+                                ))}
+                            </div>
+                            <p className="text-xl font-medium text-slate-200 leading-relaxed">
+                                &ldquo;{testimonial.content}&rdquo;
+                            </p>
+                        </div>
+
+                        <div className="flex items-center gap-4 mt-12">
+                            <div className="relative">
+                                <Avatar className="h-16 w-16 border-2 border-primary/20 p-1">
+                                    <div className="absolute inset-0 rounded-full bg-gradient-to-br from-primary/20 to-transparent" />
+                                    <AvatarImage src={testimonial.image} className="rounded-full overflow-hidden" />
+                                    <AvatarFallback>{testimonial.name[0]}</AvatarFallback>
+                                </Avatar>
+                            </div>
+                            <div>
+                                <h4 className="font-black text-white text-xl tracking-tight">{testimonial.name}</h4>
+                                <p className="text-sm text-slate-500 font-bold uppercase tracking-wider">{testimonial.role}</p>
+                            </div>
+                        </div>
+                    </motion.div>
+                ))}
+            </div>
+        </Section>
     )
 }

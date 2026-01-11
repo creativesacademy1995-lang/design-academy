@@ -3,6 +3,7 @@ import Image from "next/image"
 import Link from "next/link"
 import { ArrowLeft, Share2, Facebook, Twitter, Linkedin } from "lucide-react"
 import { Badge } from "@/components/ui/badge"
+import { FadeIn, SlideUp } from "@/components/ui/motion"
 
 const STRAPI_URL = process.env.NEXT_PUBLIC_STRAPI_URL || "http://localhost:1337"
 
@@ -97,44 +98,52 @@ export default async function BlogPostPage({
         <div className="absolute inset-0 bg-gradient-to-t from-background to-transparent" />
 
         <div className="absolute bottom-0 left-0 w-full p-8 md:p-12 container">
-          <Button
-            variant="outline"
-            size="sm"
-            className="mb-6 backdrop-blur-md bg-white/10 text-white border-white/20 hover:bg-white/20"
-            asChild
-          >
-            <Link href="/blog">
-              <ArrowLeft className="mr-2 h-4 w-4" /> Back to Blog
-            </Link>
-          </Button>
+          <FadeIn delay={0.1}>
+            <Button
+              variant="outline"
+              size="sm"
+              className="mb-6 backdrop-blur-md bg-white/10 text-white border-white/20 hover:bg-white/20"
+              asChild
+            >
+              <Link href="/blog">
+                <ArrowLeft className="mr-2 h-4 w-4" /> Back to Blog
+              </Link>
+            </Button>
+          </FadeIn>
 
-          <Badge className="mb-4">Blog</Badge>
+          <FadeIn delay={0.2}>
+            <Badge className="mb-4">Blog</Badge>
+          </FadeIn>
 
-          <h1 className="text-3xl md:text-5xl font-bold font-heading text-white max-w-4xl leading-tight mb-4">
-            {title}
-          </h1>
+          <SlideUp delay={0.3}>
+            <h1 className="text-3xl md:text-5xl font-bold font-heading text-white max-w-4xl leading-tight mb-4">
+              {title}
+            </h1>
+          </SlideUp>
 
-          <div className="flex items-center gap-4 text-white/80">
-            <span>By Admin</span>
-            {date ? (
-              <>
-                <span>•</span>
-                <span>{date}</span>
-              </>
-            ) : null}
-            <span>•</span>
-            <span className="opacity-80">{postSlug}</span>
-          </div>
+          <FadeIn delay={0.4}>
+            <div className="flex items-center gap-4 text-white/80">
+              <span>By Admin</span>
+              {date ? (
+                <>
+                  <span>•</span>
+                  <span>{date}</span>
+                </>
+              ) : null}
+              <span>•</span>
+              <span className="opacity-80">{postSlug}</span>
+            </div>
+          </FadeIn>
         </div>
       </div>
 
       <div className="container mt-12 grid grid-cols-1 lg:grid-cols-[1fr_300px] gap-12">
-        <div className="prose prose-lg dark:prose-invert max-w-none">
+        <SlideUp delay={0.5} className="prose prose-lg dark:prose-invert max-w-none">
           <div className="whitespace-pre-wrap">{contentText}</div>
-        </div>
+        </SlideUp>
 
         <aside className="space-y-8">
-          <div className="p-6 rounded-xl bg-secondary/10 border">
+          <SlideUp delay={0.6} className="p-6 rounded-xl bg-secondary/10 border">
             <h3 className="font-bold mb-4">Share this article</h3>
             <div className="flex gap-2">
               <Button variant="outline" size="icon"><Twitter className="h-4 w-4" /></Button>
@@ -142,7 +151,7 @@ export default async function BlogPostPage({
               <Button variant="outline" size="icon"><Linkedin className="h-4 w-4" /></Button>
               <Button variant="outline" size="icon"><Share2 className="h-4 w-4" /></Button>
             </div>
-          </div>
+          </SlideUp>
         </aside>
       </div>
     </article>

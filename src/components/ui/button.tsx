@@ -21,10 +21,10 @@ const buttonVariants = cva(
                 glass: "glass text-white hover:bg-white/20 border-white/20",
             },
             size: {
-                default: "h-11 px-6 py-2",
-                sm: "h-9 rounded-md px-3",
-                lg: "h-14 rounded-xl px-10 text-base",
-                icon: "h-11 w-11",
+                default: "h-12 px-6 py-2", // 48px
+                sm: "h-10 rounded-md px-4", // 40px
+                lg: "h-14 rounded-xl px-10 text-base", // 56px (already multiple of 8)
+                icon: "h-12 w-12", // 48px
             },
         },
         defaultVariants: {

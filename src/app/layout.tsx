@@ -29,7 +29,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" className="dark">
       <body suppressHydrationWarning className={cn(
         "min-h-screen bg-background font-sans antialiased flex flex-col",
         manrope.variable,
@@ -37,7 +37,7 @@ export default function RootLayout({
       )}>
         <AdmissionsProvider>
           <Navbar />
-          <main className="flex-1">
+          <main className="min-h-screen">
             {children}
           </main>
           <Footer />

@@ -4,6 +4,7 @@ import { ArrowLeft, Clock } from "lucide-react"
 import { Badge } from "@/components/ui/badge"
 import JoinNowClient from "@/components/JoinNowClient"
 import { Button } from "@/components/ui/button"
+import { FadeIn, SlideUp } from "@/components/ui/motion"
 
 const STRAPI_URL = process.env.NEXT_PUBLIC_STRAPI_URL || "http://localhost:1337"
 
@@ -120,56 +121,64 @@ export default async function CourseDetailPage({
         <div className="absolute inset-0 bg-gradient-to-t from-background via-background/40 to-transparent" />
 
         <div className="absolute bottom-0 left-0 w-full p-8 md:p-12 container">
-          <Button
-            variant="outline"
-            size="sm"
-            className="mb-6 backdrop-blur-md bg-white/10 text-white border-white/20 hover:bg-white/20"
-            asChild
-          >
-            <Link href="/courses">
-              <ArrowLeft className="mr-2 h-4 w-4" /> Back to Courses
-            </Link>
-          </Button>
+          <FadeIn delay={0.1}>
+            <Button
+              variant="outline"
+              size="sm"
+              className="mb-6 backdrop-blur-md bg-white/10 text-white border-white/20 hover:bg-white/20"
+              asChild
+            >
+              <Link href="/courses">
+                <ArrowLeft className="mr-2 h-4 w-4" /> Back to Courses
+              </Link>
+            </Button>
+          </FadeIn>
 
-          <div className="flex flex-wrap items-center gap-2 mb-4">
-            <Badge>{level}</Badge>
-            {duration ? (
-              <Badge variant="outline" className="text-white border-white/20 bg-white/10">
-                <Clock className="h-3.5 w-3.5 mr-1" /> {duration}
-              </Badge>
-            ) : null}
-          </div>
+          <FadeIn delay={0.2}>
+            <div className="flex flex-wrap items-center gap-2 mb-4">
+              <Badge>{level}</Badge>
+              {duration ? (
+                <Badge variant="outline" className="text-white border-white/20 bg-white/10">
+                  <Clock className="h-3.5 w-3.5 mr-2" /> {duration}
+                </Badge>
+              ) : null}
+            </div>
+          </FadeIn>
 
-          <h1 className="text-3xl md:text-5xl font-bold font-heading text-white max-w-4xl leading-tight mb-4">
-            {title}
-          </h1>
+          <SlideUp delay={0.3}>
+            <h1 className="text-3xl md:text-5xl font-bold font-heading text-white max-w-4xl leading-tight mb-4">
+              {title}
+            </h1>
+          </SlideUp>
 
-          <div className="text-white/80 flex items-center gap-3">
-            {priceText ? <span className="font-bold text-white">{priceText}</span> : null}
-            {priceText && duration ? <span>•</span> : null}
-            {duration ? <span>{duration}</span> : null}
-          </div>
+          <FadeIn delay={0.4}>
+            <div className="text-white/80 flex items-center gap-3">
+              {priceText ? <span className="font-bold text-white">{priceText}</span> : null}
+              {priceText && duration ? <span>•</span> : null}
+              {duration ? <span>{duration}</span> : null}
+            </div>
+          </FadeIn>
         </div>
       </div>
 
       {/* Body */}
       <div className="container mt-12 grid grid-cols-1 lg:grid-cols-[1fr_360px] gap-10">
-        <div className="prose prose-lg dark:prose-invert max-w-none">
+        <SlideUp delay={0.5} className="prose prose-lg dark:prose-invert max-w-none">
           <h2>About this course</h2>
           <div className="whitespace-pre-wrap">{description || "No description yet."}</div>
-        </div>
+        </SlideUp>
 
         <aside className="space-y-6">
-          <div className="p-6 rounded-2xl bg-white/[0.03] border border-white/10">
+          <SlideUp delay={0.6} className="p-6 rounded-2xl bg-white/[0.03] border border-white/10">
             <h3 className="font-bold mb-3">Enroll</h3>
             <p className="text-sm text-muted-foreground mb-4">
               This is UI only. Later we can connect it to Apply Now / Checkout.
             </p>
 
             <JoinNowClient courseName={title} />
-          </div>
+          </SlideUp>
 
-          <div className="p-6 rounded-2xl bg-white/[0.03] border border-white/10">
+          <SlideUp delay={0.7} className="p-6 rounded-2xl bg-white/[0.03] border border-white/10">
             <h3 className="font-bold mb-3">Details</h3>
             <div className="text-sm text-muted-foreground space-y-2">
               <div className="flex justify-between">
@@ -189,7 +198,7 @@ export default async function CourseDetailPage({
                 <span className="text-white">{slug}</span>
               </div>
             </div>
-          </div>
+          </SlideUp>
         </aside>
       </div>
     </article>

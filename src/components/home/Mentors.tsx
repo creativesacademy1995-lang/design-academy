@@ -1,11 +1,13 @@
 "use client"
 
 import * as React from "react"
+import { motion } from "framer-motion"
 import { Card } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import Image from "next/image"
 import { Button } from "@/components/ui/button"
 import { ChevronLeft, ChevronRight, Twitter, Linkedin, Globe } from "lucide-react"
+import { Section } from "@/components/ui/section"
 
 const mentors = [
     {
@@ -40,56 +42,75 @@ const mentors = [
 
 export function Mentors() {
     return (
-        <section className="py-24 md:py-32 relative bg-background">
-            <div className="container relative z-10">
-                <div className="flex flex-col md:flex-row justify-between items-end gap-6 mb-16">
-                    <div className="space-y-4 max-w-2xl">
-                        <Badge variant="outline" className="px-4 py-1 text-primary border-primary/20 bg-primary/5 uppercase tracking-tighter">Industry Experts</Badge>
-                        <h2 className="text-4xl md:text-6xl font-black font-heading text-white">Learn from the Best.</h2>
-                        <p className="text-lg text-slate-400">
-                            Our mentors aren&apos;t just teachers; they&apos;re world-class practitioners building the products you use every day.
-                        </p>
+        <Section spacing="default" className="relative overflow-hidden">
+            <div className="flex flex-col md:flex-row justify-between items-end gap-8 mb-16 relative z-10">
+                <div className="space-y-6 max-w-2xl">
+                    <div className="inline-flex items-center gap-2 px-6 py-2 rounded-full border border-white/10 bg-white/5 backdrop-blur-xl shadow-2xl">
+                        <div className="w-2 h-2 rounded-full bg-primary animate-ping" />
+                        <span className="text-[10px] font-black text-white uppercase tracking-[0.4em]">Industry Experts</span>
                     </div>
-                    <div className="flex gap-4">
-                        <Button variant="outline" size="icon" className="rounded-full h-12 w-12 border-white/10 hover:bg-white/5">
-                            <ChevronLeft className="h-6 w-6" />
-                        </Button>
-                        <Button variant="outline" size="icon" className="rounded-full h-12 w-12 border-white/10 hover:bg-white/5">
-                            <ChevronRight className="h-6 w-6" />
-                        </Button>
-                    </div>
+                    <h2 className="text-5xl md:text-8xl font-black font-heading text-white leading-[1.1] tracking-tight">
+                        Learn from <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-blue-400 to-indigo-400">the Best.</span>
+                    </h2>
+                    <p className="text-lg md:text-xl text-slate-400 leading-relaxed font-medium">
+                        Our mentors aren&apos;t just teachers; they&apos;re world-class practitioners building the products you use every day.
+                    </p>
                 </div>
-
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-                    {mentors.map((mentor, i) => (
-                        <Card key={i} className="group border-white/5 bg-white/[0.02] overflow-hidden hover:-translate-y-2 transition-all duration-500">
-                            <div className="relative aspect-[4/5] overflow-hidden">
-                                <div className="relative w-full h-full rounded-[2.5rem] overflow-hidden grayscale group-hover:grayscale-0 transition-all duration-700">
-                                    <Image src={mentor.image} alt={mentor.name} fill className="object-cover transition-transform duration-700 group-hover:scale-105" />
-                                    <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
-                                </div>
-                                <div className="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-transparent to-transparent opacity-60 group-hover:opacity-90 transition-opacity" />
-
-                                <div className="absolute bottom-6 left-6 right-6 translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
-                                    <div className="flex gap-3 mb-4 opacity-0 group-hover:opacity-100 transition-opacity delay-100">
-                                        <button className="h-8 w-8 rounded-full glass border-white/10 flex items-center justify-center text-white hover:bg-primary transition-colors">
-                                            <Twitter className="h-4 w-4" />
-                                        </button>
-                                        <button className="h-8 w-8 rounded-full glass border-white/10 flex items-center justify-center text-white hover:bg-primary transition-colors">
-                                            <Linkedin className="h-4 w-4" />
-                                        </button>
-                                        <button className="h-8 w-8 rounded-full glass border-white/10 flex items-center justify-center text-white hover:bg-primary transition-colors">
-                                            <Globe className="h-4 w-4" />
-                                        </button>
-                                    </div>
-                                    <h3 className="text-2xl font-bold text-white mb-1">{mentor.name}</h3>
-                                    <p className="text-slate-300 text-sm font-medium">{mentor.role} @ {mentor.company}</p>
-                                </div>
-                            </div>
-                        </Card>
-                    ))}
+                <div className="flex gap-4">
+                    <Button variant="outline" size="icon" className="rounded-full h-14 w-14 border-white/10 hover:bg-white/5 group">
+                        <ChevronLeft className="h-6 w-6 transition-transform group-hover:-translate-x-1" />
+                    </Button>
+                    <Button variant="outline" size="icon" className="rounded-full h-14 w-14 border-white/10 hover:bg-white/5 group">
+                        <ChevronRight className="h-6 w-6 transition-transform group-hover:translate-x-1" />
+                    </Button>
                 </div>
             </div>
-        </section>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+                {mentors.map((mentor, i) => (
+                    <motion.div
+                        key={i}
+                        whileHover={{ y: -12 }}
+                        transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                        className="group relative rounded-[2.5rem] bg-white/[0.03] border border-white/5 overflow-hidden backdrop-blur-sm hover:bg-white/[0.06] transition-all duration-500"
+                    >
+                        <div className="relative aspect-[4/5] m-2 overflow-hidden rounded-[2rem]">
+                            <Image
+                                src={mentor.image}
+                                alt={mentor.name}
+                                fill
+                                className="object-cover grayscale group-hover:grayscale-0 transition-all duration-700 group-hover:scale-105"
+                            />
+                            <div className="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-950/20 to-transparent opacity-60 group-hover:opacity-80 transition-opacity" />
+
+                            {/* Social Overlay */}
+                            <div className="absolute top-4 right-4 flex flex-col gap-2 translate-x-12 opacity-0 group-hover:translate-x-0 group-hover:opacity-100 transition-all duration-500">
+                                <button className="h-10 w-10 rounded-xl bg-white/10 backdrop-blur-md border border-white/10 flex items-center justify-center text-white hover:bg-primary hover:border-primary transition-all">
+                                    <Twitter className="h-4 w-4" />
+                                </button>
+                                <button className="h-10 w-10 rounded-xl bg-white/10 backdrop-blur-md border border-white/10 flex items-center justify-center text-white hover:bg-primary hover:border-primary transition-all">
+                                    <Linkedin className="h-4 w-4" />
+                                </button>
+                            </div>
+
+                            {/* Info Overlay */}
+                            <div className="absolute bottom-6 left-6 right-6">
+                                <h3 className="text-2xl font-black text-white leading-tight mb-1">{mentor.name}</h3>
+                                <div className="flex items-center gap-2">
+                                    <span className="text-primary font-bold text-xs uppercase tracking-wider">{mentor.role}</span>
+                                    <span className="w-1 h-1 rounded-full bg-slate-700" />
+                                    <span className="text-slate-400 font-bold text-xs uppercase tracking-wider">{mentor.company}</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="p-6 pt-2">
+                            <p className="text-slate-500 text-sm font-medium line-clamp-2 leading-relaxed">
+                                {mentor.bio}
+                            </p>
+                        </div>
+                    </motion.div>
+                ))}
+            </div>
+        </Section>
     )
 }

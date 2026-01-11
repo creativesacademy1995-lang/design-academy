@@ -1,5 +1,4 @@
 import FeaturedCoursesClient, { type CourseCard } from "./FeaturedCoursesClient"
-import type { ReactElement } from "react"
 
 const STRAPI_URL = process.env.NEXT_PUBLIC_STRAPI_URL || "http://localhost:1337"
 const FALLBACK_IMAGE =
@@ -22,13 +21,13 @@ function formatPrice(price: unknown) {
 
 async function getCourses(): Promise<CourseCard[]> {
   const url =
-  `${STRAPI_URL}/api/courses?filters[is_active][$eq]=true` +
-  `&populate=thumbnail` +
-  `&pagination[limit]=3`
+    `${STRAPI_URL}/api/courses?filters[is_active][$eq]=true` +
+    `&populate=thumbnail` +
+    `&pagination[limit]=3`
 
 
   try {
-    const res = await fetch(url, { cache: "no-store" })
+    const res = await fetch(url, { next: { revalidate: 60 } })
 
     if (!res.ok) {
       const body = await res.text().catch(() => "<unable to read body>")

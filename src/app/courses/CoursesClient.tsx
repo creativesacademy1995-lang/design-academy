@@ -10,6 +10,8 @@ import { Badge } from "@/components/ui/badge"
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Search, Star, Clock, Video, Filter } from "lucide-react"
 import { cn } from "@/lib/utils"
+import { Section } from "@/components/ui/section"
+import { FadeIn, SlideUp, StaggerContainer, StaggerItem } from "@/components/ui/motion"
 
 const FALLBACK_IMAGE =
   "https://via.placeholder.com/800x450.png?text=Course+Image&bg=111827&fg=ffffff"
@@ -66,31 +68,37 @@ export default function CoursesClient({ initialCourses }: { initialCourses: Cour
   })
 
   return (
-    <div className="min-h-screen bg-background pb-32 pt-20">
+    <div className="min-h-screen bg-background">
       {/* Header */}
-      <section className="relative py-24 bg-grid border-b border-white/5">
-        <div className="absolute inset-0 bg-gradient-to-b from-primary/10 via-background to-background" />
-        <div className="container relative z-10 text-center space-y-6">
-          <Badge
-            variant="outline"
-            className="px-4 py-1 text-primary border-primary/20 bg-primary/5 uppercase tracking-tighter"
-          >
-            Course Catalog
-          </Badge>
+      <Section variant="hero" withGrid spacing="none" className="text-center bg-grid">
 
-          <h1 className="text-5xl md:text-8xl font-black font-heading text-white">
-            Full-Stack <br /> Design Skills.
-          </h1>
+        <div className="container relative z-10 space-y-10 pt-32 pb-24 md:pt-48 md:pb-32 max-w-4xl mx-auto">
+          <FadeIn delay={0.1}>
+            <Badge
+              variant="outline"
+              className="px-4 py-2 rounded-full glass border-white/10 text-sm font-medium text-slate-300"
+            >
+              Course Catalog
+            </Badge>
+          </FadeIn>
 
-          <p className="text-xl text-slate-400 max-w-2xl mx-auto">
-            Choose from our selection of programs designed to take you from beginner to professional.
-          </p>
+          <SlideUp delay={0.2}>
+            <h1 className="text-5xl md:text-8xl font-black font-heading leading-[1.1] text-white">
+              Full-Stack <br /> <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-blue-400 to-indigo-400 text-glow">Design Skills.</span>
+            </h1>
+          </SlideUp>
+
+          <FadeIn delay={0.4}>
+            <p className="text-lg md:text-2xl text-slate-400 max-w-3xl mx-auto leading-relaxed">
+              Choose from our selection of programs designed to take you from beginner to professional.
+            </p>
+          </FadeIn>
         </div>
-      </section>
+      </Section>
 
-      <div className="container mt-20">
+      <Section spacing="default" className="pb-32">
         {/* Search & Filter Bar */}
-        <div className="flex flex-col lg:flex-row gap-8 mb-20 items-center justify-between glass p-8 rounded-3xl border-white/5">
+        <FadeIn delay={0.5} className="flex flex-col lg:flex-row gap-8 mb-20 items-center justify-between glass p-8 rounded-3xl border-white/5">
           <div className="relative w-full lg:w-[400px]">
             <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-slate-500" />
             <Input
@@ -104,7 +112,7 @@ export default function CoursesClient({ initialCourses }: { initialCourses: Cour
           <div className="flex flex-col md:flex-row gap-6 w-full lg:w-auto items-start md:items-center">
             <div className="flex items-center gap-4 w-full md:w-auto">
               <Filter className="h-5 w-5 text-primary shrink-0" />
-              <div className="flex gap-2 bg-white/5 p-1.5 rounded-2xl border border-white/5 overflow-x-auto no-scrollbar w-full md:w-auto">
+              <div className="flex gap-2 bg-white/5 p-2 rounded-2xl border border-white/5 overflow-x-auto no-scrollbar w-full md:w-auto">
                 {categories.map((cat) => (
                   <button
                     key={cat}
@@ -139,10 +147,10 @@ export default function CoursesClient({ initialCourses }: { initialCourses: Cour
               </select>
             </div>
           </div>
-        </div>
+        </FadeIn>
 
         {/* Course Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+        <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
           {filteredCourses.length > 0 ? (
             filteredCourses.map((course) => {
               const displayCategory = course.category ?? "Design"
@@ -158,9 +166,8 @@ export default function CoursesClient({ initialCourses }: { initialCourses: Cour
 
                     <div className="absolute top-4 left-4 flex gap-2">
                       <Badge
-                        className={`bg-gradient-to-r ${
-                          course.color || "from-purple-500 to-indigo-500"
-                        } border-0 text-white`}
+                        className={`bg-gradient-to-r ${course.color || "from-purple-500 to-indigo-500"
+                          } border-0 text-white`}
                       >
                         {displayCategory}
                       </Badge>
@@ -181,7 +188,7 @@ export default function CoursesClient({ initialCourses }: { initialCourses: Cour
 
                     {/* rating optional */}
                     <div className="flex items-center text-amber-500 font-bold">
-                      <Star className="w-4 h-4 mr-1.5 fill-current" />
+                      <Star className="w-4 h-4 mr-2 fill-current" />
                       {course.rating ?? 5.0}
                       <span className="text-slate-500 ml-2 font-medium">
                         ({course.reviews ?? 0} reviews)
@@ -204,24 +211,24 @@ export default function CoursesClient({ initialCourses }: { initialCourses: Cour
 
                   <CardFooter className="p-8 border-t border-white/5 flex items-center justify-between">
                     <span className="text-3xl font-black text-white">{course.price || "—"}</span>
-                      <Button
-                        type="button"
-                        variant="gradient"
-                        className="rounded-xl px-8 h-12 shadow-glow-primary"
-                        onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
-                          e.preventDefault()
-                          e.stopPropagation()
-                          // attempt to stop any other handlers (robust against parent Link)
-                          try {
-                            ;(e.nativeEvent as Event).stopImmediatePropagation()
-                          } catch {}
+                    <Button
+                      type="button"
+                      variant="gradient"
+                      className="rounded-xl px-8 h-12 shadow-glow-primary"
+                      onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
+                        e.preventDefault()
+                        e.stopPropagation()
+                        // attempt to stop any other handlers (robust against parent Link)
+                        try {
+                          ; (e.nativeEvent as Event).stopImmediatePropagation()
+                        } catch { }
 
-                          // Open the shared Admissions modal; pass slug so the modal can prefill
-                          void openModal(course.slug ?? null)
-                        }}
-                      >
-                        Join Now
-                      </Button>
+                        // Open the shared Admissions modal; pass slug so the modal can prefill
+                        void openModal(course.slug ?? null)
+                      }}
+                    >
+                      Join Now
+                    </Button>
                   </CardFooter>
                 </Card>
               )
@@ -229,16 +236,20 @@ export default function CoursesClient({ initialCourses }: { initialCourses: Cour
               // If slug is present, wrap in a Next `Link`. Otherwise render the card without a link
               if (course.slug) {
                 return (
-                  <Link href={`/courses/${encodeURIComponent(String(course.slug))}`} key={course.id} className="group">
-                    {card}
-                  </Link>
+                  <StaggerItem key={course.id}>
+                    <Link href={`/courses/${encodeURIComponent(String(course.slug))}`} className="group h-full block">
+                      {card}
+                    </Link>
+                  </StaggerItem>
                 )
               }
 
               return (
-                <div key={course.id} className="group">
-                  {card}
-                </div>
+                <StaggerItem key={course.id}>
+                  <div className="group h-full">
+                    {card}
+                  </div>
+                </StaggerItem>
               )
             })
           ) : (
@@ -252,8 +263,8 @@ export default function CoursesClient({ initialCourses }: { initialCourses: Cour
               </p>
             </div>
           )}
-        </div>
-      </div>
+        </StaggerContainer>
+      </Section>
     </div>
   )
 }
